@@ -95,6 +95,7 @@ app.controller('InvoiceController', ['$scope','$filter', 'InvoiceService', 'Swee
     
     $scope.onEventPaging = function(value) {
     	$scope.size = value;
+        $scope.currentPage = 0;
     	console.log('value ' + $scope.size + "-" + $scope.currentPage);
     	fetchAllInvoice();
     }
