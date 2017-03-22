@@ -1,13 +1,26 @@
-
 <div>
 	<div id="page-wrapper">
-
+		<div class="container form-inline" style="margin-top: 20px">
+			<h2 style="color: blue;">{{ ctrl.titleReport }}</h2>
+			<div class="row">
+				<div>
+					<div class="form-group">
+						<label style="font-weight: bold">Start Date:</label> <input
+							type="date" ng-model="dateStart" class="form-control"
+							placeholder="Start Date..." /> <label style="font-weight: bold">End
+							Date:</label> <input type="date" ng-model="dateEnd" class="form-control"
+							placeholder="End Date..." /> 
+						<label style="font-weight: bold">Group by: </label> 
+						<select class="form-control" ng-model="ctrl.idType">
+							<option	ng-model="ctrl.nameInvoice" ng-repeat="u in ctrl.typeInvoices" value="{{ u.id }}" ng-change="ctrl.selectIdType('u.nameInvoice')">{{u.nameInvoice}}</option>
+						</select>
+						<button class="btn btn-primary" ng-click="btnReport()">Report</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<list-report></list-report>
-
 	</div>
 	<!-- /.container-fluid -->
-
 </div>
 <!-- /#page-wrapper -->
-
-

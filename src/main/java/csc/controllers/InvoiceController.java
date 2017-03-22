@@ -1,8 +1,6 @@
 package csc.controllers;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +21,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import csc.models.Customer;
 import csc.models.Invoice;
+import csc.models.TypeInvoice;
 import csc.models.Users;
+import csc.repository.TypeInvoiceRepository;
 import csc.service.CompanyService;
 import csc.service.CustomerService;
 import csc.service.InvoiceService;
@@ -49,6 +49,9 @@ public class InvoiceController {
 
 	@Autowired
 	CompanyService companyService;
+	
+	@Autowired
+	private TypeInvoiceRepository typeInvoiceRepository;
 
 	@RequestMapping(value = "/user/getReport/start={start}&end={end}", method = RequestMethod.GET)
 	public ResponseEntity<List<Invoice>> getListReport(@PathVariable("start") String dateStart,
@@ -61,6 +64,34 @@ public class InvoiceController {
 		List<Invoice> invoices = null;
 		try {
 			invoices = invoiceService.getListReport(idCus, myFormat.parse(dateStart), myFormat.parse(dateEnd));
+		} catch (Exception ex) {
+			System.out.println("Exception=" + ex.getMessage());
+		}
+		
+		if (invoices.size() == 0) {
+			return new ResponseEntity<List<Invoice>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<Invoice>>(invoices, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/user/getExpensesReport/start={start}&end={end}&type={type}", method = RequestMethod.GET)
+	public ResponseEntity<List<Invoice>> getExpensesReport(@PathVariable("start") String dateStart,
+			@PathVariable("end") String dateEnd, @PathVariable("type") int idType) {
+		System.out.println("getExpensesReport");
+		System.out.println("start= " + dateStart + " -end= " +dateEnd );
+		//Get current id customer
+		Customer idCus = this.getIdCustomer();
+		List<Invoice> invoices = null;
+		TypeInvoice type= null;
+		// Format Datetime
+		SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+			type = typeInvoiceRepository.findById(idType);
+			
+			invoices = invoiceService.getExpensesReport(idCus, 
+					myFormat.parse(dateStart), myFormat.parse(dateEnd), 
+					type);
 		} catch (Exception ex) {
 			System.out.println("Exception=" + ex.getMessage());
 		}

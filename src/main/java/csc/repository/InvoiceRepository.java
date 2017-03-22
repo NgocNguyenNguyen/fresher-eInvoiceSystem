@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import csc.models.Customer;
 import csc.models.Invoice;
+import csc.models.TypeInvoice;
 
 @Repository
 public interface InvoiceRepository extends CrudRepository<Invoice, Long>, JpaRepository<Invoice, Long> {
@@ -31,5 +32,7 @@ public interface InvoiceRepository extends CrudRepository<Invoice, Long>, JpaRep
 	Page<Invoice> findByIdCustomer(Customer idcustomer, Pageable pageable);
 	
 	List<Invoice> findByIdCustomerAndDateBetween(Customer idCus, Date dateStart, Date dateEnd);
+	
+	List<Invoice> findByIdCustomerAndDateBetweenAndIdType(Customer idCus, Date dateStart, Date dateEnd, TypeInvoice type);
 
 }
