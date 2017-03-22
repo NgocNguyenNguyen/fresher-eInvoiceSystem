@@ -32,14 +32,14 @@
 								<input ng-change="ctrl.changeUserName()" ng-model="ctrl.res.email" email-not-used ng-model-options="{ debounce: 500 }" type="email" name="email" id="email" class="form-control" placeholder="Enter your Email" required />
 																
 						</div>
-						
-						<div align="center" role="alert" style="color:red">					      
-					      <span class="error" ng-show="myForm.email.$error.email">
-					        Not valid email!</span>
-					    </div>
 					  	<div align="center" ng-messages="myForm.email.$error">
-					    	<div ng-message="emailNotUsed" style="color:red">User with this email already exists.</div>
+					  		<div class="error" ng-message="email" style="color:red"> Not valid email!</div>
+					    	<div class="error" ng-message="emailNotUsed" style="color:red">User with this email already exists.</div>
+					    	<div class="error" ng-message="required" style="color:red"> You can't leave this empty. </div>
 					  	</div>
+  						<div align="center" >
+						  	
+						</div>
 					</div>
 				</div>
 
@@ -52,7 +52,10 @@
 								type="text" class="form-control" name="username" id="username"
 								placeholder="Enter your Username"  required/>						
 						</div>				
-				</div>
+					</div>
+					<div align="center" >
+						  	<span style="color:red" ng-message='myForm.username.$error.required' > You can't leave this empty. </span>
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="password" class="cols-sm-2 control-label">Password</label>
@@ -64,7 +67,12 @@
 								class="form-control" name="password" id="password"
 								placeholder="Enter your Password" ng-model="password" ng-pattern="/^[a-zA-Z0-9]*$/"  required/>
 						</div>
-						<div align="center"><p style="color:red" ng-if="myForm.password.$error.pattern">Must contain only a-z 0-9!!!</p></div>
+						<div align="center">
+							<p style="color:red" ng-if="myForm.password.$error.pattern">Must contain only a-z 0-9!!!</p>
+						</div>
+						<div align="center" >
+						  	<span style="color:red" ng-message='myForm.password.$error.required' > You can't leave this empty. </span>
+						</div>
 					</div>
 				</div>
 
@@ -79,8 +87,8 @@
 								placeholder="Confirm your Password"  pw-check='password'  required />
 						</div>
 						<div align="center" >
-  <span style="color:red" ng-dirty ng-if='myForm.confirm.$error.pwmatch && myForm.confirm.$dirty' > These passwords don't match. Try again? </span>
-</div>
+						  	<span style="color:red" ng-dirty ng-if='myForm.confirm.$error.pwmatch && myForm.confirm.$dirty' > These passwords don't match. Try again? </span>
+						</div>
 					</div>
 				</div>
 

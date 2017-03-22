@@ -3,7 +3,7 @@ app.controller('RegisterController', function($scope, RegisterService, $location
 
     var self = this;
     self.res={id:null,username:'',password:'',name:'', email:'', phone:''};
-    self.users=[];
+//    self.users=[];
 
     self.submit = submit;
     self.changeUserName = changeUserName

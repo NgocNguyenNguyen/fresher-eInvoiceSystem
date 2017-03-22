@@ -369,14 +369,32 @@ app.controller('InvoiceController', ['$scope','$filter', 'InvoiceService', 'Swee
     			function(d) {
     				// When contract number already exits
     				if (d.contractNumber != null) {
-    					self.invoice = d;
-    		        	self.invoice.date = new Date(self.invoice.date);
-    		        	fetchAllService(self.invoice.idType.id);
-    		        	fetchAllCpn(self.invoice.idType.id);
-    		        	$scope.name_type = "Update " + self.invoice.idType.nameInvoice;
-    		        	self.btn = 'Update';
-    		        	// Trigger hidden input indexConsumed when serivce is Internet Bill
-    		        	triggerHidden(self.invoice.idType.code);
+    					//alert
+    			    	SweetAlert.swal({
+    			        	title: "Are you sure?",
+    			        	text: "Your contract number already exits.",
+    			        	type: "warning",
+    			        	showCancelButton: true,
+    			        	confirmButtonColor: "#DD6B55",
+    			        	confirmButtonText: "Yes, update it!",
+    			        	cancelButtonText: "No, cancel plx!",
+    			        	closeOnConfirm: true,
+    			        	closeOnCancel: true
+    			        }, 
+    			        function(isConfirm){ // Function that triggers on user action.
+    						  if (isConfirm) {
+		    					self.invoice = d;
+		    		        	self.invoice.date = new Date(self.invoice.date);
+		    		        	fetchAllService(self.invoice.idType.id);
+		    		        	fetchAllCpn(self.invoice.idType.id);
+		    		        	$scope.name_type = "Update " + self.invoice.idType.nameInvoice;
+		    		        	self.btn = 'Update';
+		    		        	// Trigger hidden input indexConsumed when serivce is Internet Bill
+		    		        	triggerHidden(self.invoice.idType.code);
+    						  } else {
+    							 //Do nothing.
+    						  }
+    			        });
     				}
     				
             	},
