@@ -1,56 +1,75 @@
 
-      <div class="generic-container" ng-controller="UserController as ctrl">
+<!--       <div class="generic-container" ng-controller="UserController as ctrl">
                     
-          <div class="agile-grids">    
-		    <div class="agile-tables">
-		        <div class="page-title">
-		            <div class="title_left">
-		                <h3>Email Configuration</h3>
-		            </div>		            
-		        </div>
-		
-		        <div class="pull-left">
-		            <h5>
-		                <span class="field-validation-error" id="error_message">
-		                </span>
-		            </h5>
-		        </div>
-		
-		        <div id="list">
-		            <form ng-submit="ctrl.emailConfig()" name="myForm" class="form-horizontal">
-						
-						<div class="">
-							<div class="col-md-12">
-								<label class="col-md-2 " for="time">Time</label>
-								<div class="col-md-7">
-									<input ng-model="ctrl.parameter.paraValue" type="date" name="date" id="time" required
-										class="form-control input-lg" placeholder="Date" disabled/>
-									
-									<div class="has-error" ng-show="myForm.$dirty">
-										<span ng-show="myForm.time.$error.required">This is a
-											required field</span> <span ng-show="myForm.time.$error.minlength">Minimum
-											length required is 3</span> <span ng-show="myForm.time.$invalid">This
-											field is invalid </span>
-									</div>
-								</div>
-							</div>
-						</div>
-																																
-						<div class="row">
-							<div align="center" class="col-md-12">
-								<input type="button" class="btn btn-primary" ng-click='ctrl.myEnable()' value="Edit" />
-								
-								<input ng-show="isUpdate" type="submit" value="Update"
-									class="btn btn-primary btn-lg" ng-disabled="myForm.$invalid">								
-							</div>
-						</div>
-					</form>
-		        </div>        
-		    </div>
+          <div class="agile-grids">     -->
+<div class="agile-tables">
+	<div class="page-title">
+		<div class="title_left">
+			<h3>Email Configuration</h3>
 		</div>
+	</div>
+
+	<div class="pull-left">
+		<h5>
+			<span class="field-validation-error" id="error_message"> </span>
+		</h5>
+	</div>
+
+	<div id="list">
+		<form ng-submit="ctrl.emailConfig()" name="myForm"
+			class="form-horizontal" style="padding:40px; margin-left: 15%;margin-right:15%; width: 70%;">
+
+			<fieldset name="set" disabled>
+				<input type="hidden" ng-model="ctrl.parmeter.id" />
+				<div class="form-group">
+					<label style="font-weight: bold">Time</label> <input
+						ng-model="ctrl.parameter.timeEmail" type="datetime-local"
+						name="time" id="time" required class="form-control input-lg"
+						placeholder="yyyy-MM-ddTHH:mm:ss" min="2001-01-01T00:00:00"
+						max="2018-12-31T00:00:00" />
+
+					<div class="has-error" ng-show="myForm.$dirty">
+						<span ng-show="myForm.time.$error.required">This is a
+							required field</span> <span class="error"
+							ng-show="myForm.time.$error.datetimelocal"> Not a valid
+							date!</span>
+					</div>
+
+				</div>
+
+				<div class="form-group">
+					<label style="font-weight: bold">Email</label> <input
+						ng-model="ctrl.parameter.email" type="email" name="email"
+						class="form-control input-lg" placeholder="Your Email" required />
+					<div align="center" role="alert" style="color: red">
+						<span class="error" ng-show="myForm.email.$error.email">
+							Not valid email!</span>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label style="font-weight: bold">Password</label> <input
+						ng-model="ctrl.parameter.pwdEmail" type="password" name="pwdEmail"
+						class="form-control input-lg" placeholder="Your Password Email"
+						required />
+
+				</div>
+
+			</fieldset>
+
+			<div class="row">
+				<div align="center" class="col-md-12">
+					<input ng-show="isEdit" type="button" class="btn btn-primary"
+						ng-click='ctrl.myEnable()' value="Edit" /> <input
+						ng-show="isUpdate" type="submit" value="Update"
+						class="btn btn-primary btn-lg" ng-disabled="myForm.$invalid">
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<!-- </div>
                          
           
-      </div>
-       
-    
- 
+      </div> -->
+

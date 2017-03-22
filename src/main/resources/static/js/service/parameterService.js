@@ -1,16 +1,20 @@
 'use strict';
+
 app.factory('ParameterService', ['$http', '$q', function($http, $q){
     
     var factory = {    	
         updateParameter:updateParameter,        
-        getParameterByKey:getParameterByKey,
+
+        getParameter:getParameter,
     };
     return factory;
     
     //Service call api get parameter
-    function getParameterByKey(key) {
+
+    function getParameter(id) {
         var deferred = $q.defer();
-        $http.get(BASE_URL + "parameter/getByKey/key=" +key)
+
+        $http.get(BASE_URL + "parameter/get/" +id)
             .then(
             function (response) {            	
                 deferred.resolve(response.data);                
@@ -27,7 +31,8 @@ app.factory('ParameterService', ['$http', '$q', function($http, $q){
     function updateParameter(id, parameter) {
     	console.log(parameter);
     	var deferred = $q.defer();
-        $http.post(BASE_URL + "parameter/update/key=" +id, parameter)
+
+        $http.post(BASE_URL + "parameter/update/" +id, parameter)
             .then(
             function (response) {
                 deferred.resolve(response.data);

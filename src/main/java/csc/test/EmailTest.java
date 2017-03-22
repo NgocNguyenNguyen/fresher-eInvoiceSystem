@@ -1,7 +1,5 @@
 package csc.test;
 
-import static org.junit.Assert.fail;
-
 import java.util.Properties;
 
 import javax.mail.Message;

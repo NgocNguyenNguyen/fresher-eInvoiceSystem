@@ -9,5 +9,5 @@ import csc.models.Parameter;
 public interface ParameterRepository extends CrudRepository<Parameter, Integer> {
 	Parameter findById(Integer id);
 	
-	Parameter findByParaKey(String parakey);
+	Parameter findByEmail(String email);
 }

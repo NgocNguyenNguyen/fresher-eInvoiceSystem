@@ -35,7 +35,7 @@
 					  	<div align="center" ng-messages="myForm.email.$error">
 					  		<div class="error" ng-message="email" style="color:red"> Not valid email!</div>
 					    	<div class="error" ng-message="emailNotUsed" style="color:red">User with this email already exists.</div>
-					    	<div class="error" ng-message="required" style="color:red"> You can't leave this empty. </div>
+					    	<!-- <div class="error" ng-message="required" style="color:red"> You can't leave this empty. </div> -->
 					  	</div>
   						<div align="center" >
 						  	
@@ -53,9 +53,6 @@
 								placeholder="Enter your Username"  required/>						
 						</div>				
 					</div>
-					<div align="center" >
-						  	<span style="color:red" ng-message='myForm.username.$error.required' > You can't leave this empty. </span>
-					</div>
 				</div>
 				<div class="form-group">
 					<label for="password" class="cols-sm-2 control-label">Password</label>
@@ -69,9 +66,6 @@
 						</div>
 						<div align="center">
 							<p style="color:red" ng-if="myForm.password.$error.pattern">Must contain only a-z 0-9!!!</p>
-						</div>
-						<div align="center" >
-						  	<span style="color:red" ng-message='myForm.password.$error.required' > You can't leave this empty. </span>
 						</div>
 					</div>
 				</div>

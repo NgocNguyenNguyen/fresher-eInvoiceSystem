@@ -47,6 +47,9 @@
 			<img id="profile-img" class="profile-img-card"
 				src="/EInvoice/images/login.png" />
 			<p id="profile-name" class="profile-name-card"></p>
+			<div align="center" >
+				<p style="color: red" th:if="${loginError}" class="error">Wrong user or password</p>
+			</div>
 			<form class="form-signin" name="myForm" th:action="@{/login}" method="POST" >
 				<input type="text" name="username" class="form-control"
 					placeholder="Username" required="required" /> <input type="password" name="password"

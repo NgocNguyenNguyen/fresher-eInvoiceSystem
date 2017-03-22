@@ -6,7 +6,7 @@ public interface ParameterService {
 	
 	Parameter findById(Integer id);
 	
-	Parameter findByParaKey(String parakey);
+	Parameter findByEmail(String email);
 	
 	void saveParameter(Parameter parameter);
 	

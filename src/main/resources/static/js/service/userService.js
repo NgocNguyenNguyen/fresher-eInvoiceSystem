@@ -6,8 +6,7 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
     	fetchAllUsers: fetchAllUsers,
         createUser: createUser,
         updateUser:updateUser,
-        deleteUser:deleteUser,
-        getUsersByActive:getUsersByActive,
+        deleteUser:deleteUser,        
     };
     return factory;
     
@@ -15,6 +14,7 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
 
     function fetchAllUsers(active, search, size, page) {
         var deferred = $q.defer();
+
 
         $http.get(BASE_URL + "user/getAll/active=" + active + "&search=" + search + "?size="+ size + "&page=" + page)
             .then(
@@ -29,25 +29,26 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
         return deferred.promise;
     }
 
-    //Service call api get list user with active and pagable
-    function getUsersByActive(active, size, page) {
-        var deferred = $q.defer();
-        $http.get(BASE_URL + "user/getByActive/" +active + "?size="+ size + "&page=" + page)
-            .then(
-            function (response) {
-            	console.log("Service: " + response.data);
-                deferred.resolve(response.data);                
-            },
-            function(errResponse){
-                console.error('Error while fetching Users');
-                deferred.reject(errResponse);
-            }
-        );
-        return deferred.promise;
-    }
+//    //Service call api get list user with active and pagable
+//    function getUsersByActive(active, size, page) {
+//        var deferred = $q.defer();
+//        $http.get(REST_SERVICE_URI + "getByActive/" +active + "?size="+ size + "&page=" + page)
+//            .then(
+//            function (response) {
+//            	console.log("Service: " + response.data);
+//                deferred.resolve(response.data);                
+//            },
+//            function(errResponse){
+//                console.error('Error while fetching Users');
+//                deferred.reject(errResponse);
+//            }
+//        );
+//        return deferred.promise;
+//    }
     //Service all api create user 
     function createUser(user) {
         var deferred = $q.defer();
+
         $http.post(BASE_URL + "user/create", user)
             .then(
             function (response) {
@@ -70,6 +71,7 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
         if (user.active == false) {
         	user.active = '0';
         }
+
         $http.post(BASE_URL + "user/update/" +id, user)
             .then(
             function (response) {
@@ -85,6 +87,7 @@ app.factory('UserService', ['$http', '$q', function($http, $q){
     //Service call api remove user === NOT USING
     function deleteUser(id) {
         var deferred = $q.defer();
+
         $http.get(BASE_URL + "user/delete/" +id)
             .then(
             function (response) {

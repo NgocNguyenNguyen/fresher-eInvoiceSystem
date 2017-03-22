@@ -1,6 +1,7 @@
 package csc.models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 @Entity
 @Table(name = "parameter")
 public class Parameter implements Serializable {
@@ -21,25 +24,26 @@ public class Parameter implements Serializable {
 	private Integer id;
 
 	@Basic(optional = false)
-	@Column(name = "para_key")
-	private String paraKey;
+	@Column(name = "time_email")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date timeEmail;
 
 	@Basic(optional = false)
-	@Column(name = "para_value")
-	private String paraValue;
+	@Column(name = "email")
+	private String email;
 	
-	@Column(name = "description",length=10485760)
-	private String description;
+	@Column(name = "pwd_email")
+	private String pwdEmail;
 	
 	public Parameter() {
 	}
-			
-	public Parameter(Integer id, String paraKey, String paraValue, String description) {
+		
+	public Parameter(Integer id, Date timeEmail, String email, String pwdEmail) {
 		super();
 		this.id = id;
-		this.paraKey = paraKey;
-		this.paraValue = paraValue;
-		this.description = description;
+		this.timeEmail = timeEmail;
+		this.email = email;
+		this.pwdEmail = pwdEmail;
 	}
 
 	public Integer getId() {
@@ -50,28 +54,30 @@ public class Parameter implements Serializable {
 		this.id = id;
 	}
 
-	public String getParaKey() {
-		return paraKey;
+	public Date getTimeEmail() {
+		return timeEmail;
 	}
 
-	public void setParaKey(String paraKey) {
-		this.paraKey = paraKey;
+	public void setTimeEmail(Date timeEmail) {
+		this.timeEmail = timeEmail;
 	}
 
-	public String getParaValue() {
-		return paraValue;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setParaValue(String paraValue) {
-		this.paraValue = paraValue;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getPwdEmail() {
+		return pwdEmail;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setPwdEmail(String pwdEmail) {
+		this.pwdEmail = pwdEmail;
 	}
+			
+	
 	
 }

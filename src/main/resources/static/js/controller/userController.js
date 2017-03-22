@@ -13,9 +13,9 @@ app.controller('UserController', ['$scope','$filter', 'UserService', 'SweetAlert
     
     self.parameter={
     		id:null,
-    		paraKey:'',
-    		paraValue:'',
-    		description: ''
+    		timeEmail: new Date(),
+    		email:'',
+    		pwdEmail: ''
     };    
         
     self.users=[];
@@ -168,23 +168,23 @@ app.controller('UserController', ['$scope','$filter', 'UserService', 'SweetAlert
     }
     
 //    Email Configuration
-    getParameterByKey('timeEmail');
+    getParameter();
+    $scope.isEdit = true;
     
     function myEnable(){
-    	document.myForm.time.disabled = false;
+    	document.myForm.set.disabled = false;
 		console.log('enabled form');
 		
 		$scope.isUpdate = true;
+		$scope.isEdit = false;
     }
     
-    function getParameterByKey(key){
-    	ParameterService.getParameterByKey(key)
+    function getParameter(){
+    	ParameterService.getParameter('1')
         .then(
-	        function(d) {	
-	        	if(d.paraKey=='timeEmail')
-	        	{
-	        		d.paraValue = new Date(d.paraValue);
-	        	}
+	        function(d) {
+	        	var a = d.timeEmail;
+	        	d.timeEmail = new Date(a);
 	        	self.parameter = d;	        	 	
 	        },
 	        function(errResponse){
@@ -194,6 +194,7 @@ app.controller('UserController', ['$scope','$filter', 'UserService', 'SweetAlert
     }
     
     function emailConfig(){
+    	console.log(self.parameter);
        	// alert
         SweetAlert.swal({
         	title: "Are you sure?",
@@ -210,12 +211,13 @@ app.controller('UserController', ['$scope','$filter', 'UserService', 'SweetAlert
     		// var r = confirm("Are you sure!");
     		// console.log(self.cus);
 			  if (isConfirm) {
-				  ParameterService.updateParameter('timeEmail',self.parameter)
+				  ParameterService.updateParameter('1',self.parameter)
 	                .then(
 		                function(succes){
 		                	SweetAlert.swal("Updated!", "Your time has been updated.", "success");
-		                	document.myForm.time.disabled = true;
+		                	document.myForm.set.disabled = true;
 		                	$scope.isUpdate = false;
+		                	$scope.isEdit = true;
 		                }),
 	                	// console.log("Update success")
 	                	// document.myForm.set.disabled = true;

@@ -19,12 +19,6 @@ public class ParameterServiceImpl implements ParameterService{
 	}
 
 	@Override
-	public Parameter findByParaKey(String parakey) {
-		// TODO Auto-generated method stub
-		return parameterRepository.findByParaKey(parakey);
-	}
-
-	@Override
 	public void saveParameter(Parameter parameter) {
 		// TODO Auto-generated method stub
 		parameterRepository.save(parameter);
@@ -34,6 +28,12 @@ public class ParameterServiceImpl implements ParameterService{
 	public void updateParameter(Parameter parameter) {
 		// TODO Auto-generated method stub
 		parameterRepository.save(parameter);
+	}
+
+	@Override
+	public Parameter findByEmail(String email) {
+		// TODO Auto-generated method stub
+		return parameterRepository.findByEmail(email);
 	}
 			
 

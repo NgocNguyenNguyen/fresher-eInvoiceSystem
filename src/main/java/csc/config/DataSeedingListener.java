@@ -1,5 +1,8 @@
 package csc.config;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -175,10 +178,16 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 		createInvoiceRecord("UC123457", 1, 2L, 1, 10);
 
 		// Create parameter
+		String dateString = "23/04/2017 23:11";		 
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");		 
 		Date date = new Date();
-		createParameter("timeEmail",date.toString(),"Config time send email");
-		createParameter("email","einvoicesystem@gmail.com","Email to send");
-		createParameter("passwordEmail","P@ssw0rd","Password email");
+		try {
+			date = df.parse(dateString);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		createParameter(date, "nguyenvanantest123@gmail.com","Nguyenvanantest123!@#");		
 
 	}
 
@@ -346,13 +355,12 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 		}
 	}
 	
-	private void createParameter(String key, String value, String description) {
+	private void createParameter(Date timeEmail, String email, String pwdEmail) {
 		Parameter pa = new Parameter();
-		
-		if (parameterRepository.findByParaKey(key) == null) {
-			pa.setParaKey(key);
-			pa.setParaValue(value);
-			pa.setDescription(description);
+		if(parameterRepository.findByEmail(email) == null){
+			pa.setTimeEmail(timeEmail);
+			pa.setEmail(email);
+			pa.setPwdEmail(pwdEmail);
 			parameterRepository.save(pa);
 		}
 	}
