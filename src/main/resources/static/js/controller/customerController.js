@@ -109,27 +109,58 @@ angular.module('dbApp').controller('CustomerController', function($scope, Custom
     	console.log('Enter!')
     	self.user.password = $scope.newpass;
     	self.user.active = "1";
-    	CustomerService.changePwd(self.user)
-        .then(
-        function(success) {
-
-        	console.log('Success change Password!')
-        	
-        	// console.log("d.totalElements" + d.totalElements);
-        },
-        function(errResponse){
-            console.error('Error while fetching User');
-        }
-    );
+    	
+    	SweetAlert.swal({
+        	title: "Are you sure?",
+        	text: "You will change your password.",
+        	type: "warning",
+        	showCancelButton: true,
+        	confirmButtonColor: "#DD6B55",
+        	confirmButtonText: "Yes, update it!",
+        	cancelButtonText: "No, cancel plx!",
+        	closeOnConfirm: false,
+        	closeOnCancel: true
+        }, 
+        function(isConfirm){ 
+    		
+			  if (isConfirm) {
+				  CustomerService.changePwd(self.user)
+	                .then(
+		                function(succes){
+		                	SweetAlert.swal("Changed!", "Your password has been updated.", "success");
+		                	
+		                }),
+	                	// console.log("Update success")
+	                	// document.myForm.set.disabled = true;
+		                function(errResponse){
+		                    console.error('Error while updating Customer');
+		                    SweetAlert.swal("Error!", "Error while updating Customer", "error");
+		                }
+			  } else {
+				    //Do nothing.
+			  }
+            
+        });
+    	
     }
 	    function getPwd(){
 	    	CustomerService.getPwd($scope.oldpass)
 	        .then(
-	        function(success) {
-
-	        	console.log('Valid Password!!')
-	        	
-	        	// console.log("d.totalElements" + d.totalElements);
+	        function(success) {	        	
+	        	if(success == false)
+	        	{
+	        		$scope.isOldPass = true;
+	        		$scope.pwdError = "Wrong password, Please check your password!"
+	        			document.myFormChange.newpass.disabled = true;
+	        			document.myFormChange.cfnewpass.disabled = true;
+	        			document.myFormChange.btn.disabled = true;
+	        	}
+	        	else {
+	        		$scope.isOldPass = false;
+	        		document.myFormChange.newpass.disabled = false;
+        			document.myFormChange.cfnewpass.disabled = false;
+        			document.myFormChange.btn.disabled = false;
+	        	}
 	        },
 	        function(errResponse){
 	            console.error('Error while fetching User');

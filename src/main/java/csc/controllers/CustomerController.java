@@ -61,8 +61,8 @@ public class CustomerController {
 	public ResponseEntity<Customer> getCustomer() {
 
 		Customer cus = this.getCustomerAuthen();
-		cus.getUser().setPassword(null);
-		cus.getUser().setRoles(null);
+		//cus.getUser().setPassword(null);
+		//cus.getUser().setRoles(null);
 
 		log.info("Fetching Customer with id " + cus.getId());
 

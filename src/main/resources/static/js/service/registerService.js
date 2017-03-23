@@ -6,7 +6,7 @@ angular.module('myApp').factory('RegisterService', ['$http', '$q', function($htt
 
     return factory;
 
-   
+   // Service call api register user
     function register(res) {
         var deferred = $q.defer();
         $http.post(BASE_URL + "user/register", res)

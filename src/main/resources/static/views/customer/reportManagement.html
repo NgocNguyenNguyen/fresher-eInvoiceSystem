@@ -4,16 +4,20 @@
 			<h2 style="color: blue;">{{ ctrl.titleReport }}</h2>
 			<div style="padding: 50px;">
 				<div class="form-group">
+				<form name="report">
 					<label style="font-weight: bold">Start Date:</label> <input
 						type="date" ng-model="dateStart" class="form-control"
 						placeholder="Start Date..." /> <label style="font-weight: bold">End
 						Date:</label> <input type="date" ng-model="dateEnd" class="form-control"
 						placeholder="End Date..." /> <label style="font-weight: bold">Group
-						by: </label> <select class="form-control" ng-model="ctrl.idType">
+						by: </label> <select class="form-control" name="secl" ng-model="ctrl.idType" required>
+						<option 
+							 value="" disabled hidden>Choose A Bill</option>
 						<option ng-model="ctrl.nameInvoice"
 							ng-repeat="u in ctrl.typeInvoices" value="{{ u.id }}">{{u.nameInvoice}}</option>
 					</select>
-					<button class="btn btn-primary" ng-click="btnReport()">Report</button>
+					<button class="btn btn-primary" ng-click="btnReport()" ng-disabled="report.secl.$error.required">Report</button>
+					</form>
 				</div>
 			</div>
 		</div>

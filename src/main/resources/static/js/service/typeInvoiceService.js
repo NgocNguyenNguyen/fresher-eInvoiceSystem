@@ -10,13 +10,14 @@ angular.module('dbApp').factory('TypeInvoiceService', ['$http', '$q', function($
     return factory;
     
 
-
+    // Service call api get all type invoice
     function fetchAllType() {
     	return $http.get(BASE_URL + "invoice/getTypeAll").then(function (response) {
                 return response.data;                
         })
     } 
     
+    // Service call api get all service by id type invoice
     function fetchAllService(id) {
         var deferred = $q.defer();
         $http.get(BASE_URL + "invoice/getAllService/" + id)
@@ -33,6 +34,7 @@ angular.module('dbApp').factory('TypeInvoiceService', ['$http', '$q', function($
         return deferred.promise;
     }
     
+    //Service call api get service by id
     function getService(name, id) {
         var deferred = $q.defer();
         $http.get(BASE_URL + "invoice/getService/name=" + name + "&id=" + id)

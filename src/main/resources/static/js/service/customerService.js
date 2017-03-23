@@ -7,6 +7,7 @@ app.factory('CustomerService', ['$http', '$q', function($http, $q){
 	    };
 	return factory;
 	
+	// Service call api get customer
 	  function getCustomer() {
 	        var deferred = $q.defer();
 	        $http.get(BASE_URL + "customer/get")
@@ -22,6 +23,7 @@ app.factory('CustomerService', ['$http', '$q', function($http, $q){
 	        return deferred.promise;
 	    }
 	  
+	  // Service call api update customer
 	  function updateCustomer(customer) {
 	    	console.log(customer);
 	        var deferred = $q.defer();
@@ -37,6 +39,8 @@ app.factory('CustomerService', ['$http', '$q', function($http, $q){
 	        );
 	        return deferred.promise;
 	    }
+	  
+	  // Service call api update password user
 	  function changePwd(user){
 		  console.log(user);
 		  var deferred = $q.defer();
@@ -53,12 +57,12 @@ app.factory('CustomerService', ['$http', '$q', function($http, $q){
       return deferred.promise;
 	  }
 	  
-	  function getPwd(pwd){
-		  console.log(pwd);
+	  // Service call api get password user
+	  function getPwd(pwd){		  
 		  var deferred = $q.defer();
 		  $http.post(BASE_URL + "customer/getPwd", pwd)
           .then(
-          function (response) {
+          function (response) {        	 
               deferred.resolve(response.data);
           },
           function(errResponse){
