@@ -1,7 +1,10 @@
-package csc.test;
+package csc.email;
+
+import static org.junit.Assert.assertTrue;
 
 import java.util.Properties;
 
+import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -11,8 +14,18 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+@RunWith(MockitoJUnitRunner.class)
 public class EmailTest {
+	private static final Logger log = LoggerFactory.getLogger(EmailTest.class);
+
+	@Mock
+	private Transport transport;
 
 	/**
 	 * test function send mail by stmp
@@ -58,8 +71,7 @@ public class EmailTest {
 			// send mail
 			Transport.send(message);
 
-			System.out.println("sendMailSMTP Done");
-
+			log.info("sendMailSMTP Done");
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
 		}
