@@ -9,7 +9,7 @@ import csc.models.TypeInvoice;
 @Repository
 public interface TypeInvoiceRepository extends CrudRepository<TypeInvoice, Integer> {
 	
-	@Cacheable("report")
+	//@Cacheable("report")
 	TypeInvoice findByNameInvoice(String nameinvoice);
 	@Cacheable("report")
 	TypeInvoice findById(Integer id);

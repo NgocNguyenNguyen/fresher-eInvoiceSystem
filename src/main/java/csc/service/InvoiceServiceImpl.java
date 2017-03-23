@@ -3,11 +3,14 @@ package csc.service;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import csc.controllers.CompanyController;
 import csc.models.Customer;
 import csc.models.Invoice;
 import csc.models.TypeInvoice;
@@ -15,7 +18,7 @@ import csc.repository.InvoiceRepository;
 
 @Service("invoiceService")
 public class InvoiceServiceImpl implements InvoiceService {
-
+	private static final Logger log = LoggerFactory.getLogger(InvoiceServiceImpl.class);
 	@Autowired
 	InvoiceRepository invoiceRepository;
 
@@ -73,5 +76,15 @@ public class InvoiceServiceImpl implements InvoiceService {
 	public Page<Invoice> findAllInvoice(Customer idcustomer, String contractnumber, Pageable pageable) {
 		return invoiceRepository.findByIdCustomerAndContractNumberContaining(idcustomer, contractnumber, pageable);
 
+	}
+
+	@Override
+	public long sumGrandTotal(String idCus, String dateStart, String dateEnd) {
+		try {
+			return invoiceRepository.sumGrandTotal(idCus, dateStart, dateEnd);
+		} catch (Exception ex) {
+			log.info(ex.getMessage());
+			return 0;
+		}
 	}
 }

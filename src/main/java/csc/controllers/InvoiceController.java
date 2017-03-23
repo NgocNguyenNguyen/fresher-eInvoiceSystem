@@ -3,6 +3,8 @@ package csc.controllers;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,6 +36,7 @@ import csc.service.UserService;
  */
 @RestController
 public class InvoiceController {
+	private static final Logger log = LoggerFactory.getLogger(InvoiceController.class);
 
 	// ------------------------
 	// PUBLIC METHODS
@@ -56,8 +59,8 @@ public class InvoiceController {
 	@RequestMapping(value = "/user/getReport/start={start}&end={end}", method = RequestMethod.GET)
 	public ResponseEntity<List<Invoice>> getListReport(@PathVariable("start") String dateStart,
 			@PathVariable("end") String dateEnd) {
-		System.out.println("getListReport");
-		System.out.println("start= " + dateStart + " -end= " +dateEnd );
+		log.info("getListReport");
+		log.info("start= " + dateStart + " -end= " +dateEnd );
 		Customer idCus = this.getIdCustomer();
 		
 		SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -65,7 +68,7 @@ public class InvoiceController {
 		try {
 			invoices = invoiceService.getListReport(idCus, myFormat.parse(dateStart), myFormat.parse(dateEnd));
 		} catch (Exception ex) {
-			System.out.println("Exception=" + ex.getMessage());
+			log.info("Exception=" + ex.getMessage());
 		}
 		
 		if (invoices.size() == 0) {
@@ -77,8 +80,8 @@ public class InvoiceController {
 	@RequestMapping(value = "/user/getExpensesReport/start={start}&end={end}&type={type}", method = RequestMethod.GET)
 	public ResponseEntity<List<Invoice>> getExpensesReport(@PathVariable("start") String dateStart,
 			@PathVariable("end") String dateEnd, @PathVariable("type") int idType) {
-		System.out.println("getExpensesReport");
-		System.out.println("start= " + dateStart + " -end= " +dateEnd );
+		log.info("getExpensesReport");
+		log.info("start= " + dateStart + " -end= " +dateEnd );
 		//Get current id customer
 		Customer idCus = this.getIdCustomer();
 		List<Invoice> invoices = null;
@@ -93,7 +96,7 @@ public class InvoiceController {
 					myFormat.parse(dateStart), myFormat.parse(dateEnd), 
 					type);
 		} catch (Exception ex) {
-			System.out.println("Exception=" + ex.getMessage());
+			log.error("Exception=" + ex.getMessage());
 		}
 		
 		if (invoices.size() == 0) {
@@ -145,13 +148,13 @@ public class InvoiceController {
 
 	@RequestMapping(value = "/invoice/create", method = RequestMethod.POST)
 	public ResponseEntity<Void> createInvoice(@RequestBody Invoice invoice, UriComponentsBuilder ucBuilder) {
-		System.out.println("Creating Invoice " + invoice.getId());
+		log.info("Creating Invoice " + invoice.getId());
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		Users user = new Users();
 		user = userService.findByName(username);
-		System.out.println("Type invoice" + invoice.getIdType());
+		log.info("Type invoice" + invoice.getIdType());
 		Customer cus = new Customer();
 		cus = customerService.findByUser(user);
 		
@@ -168,19 +171,19 @@ public class InvoiceController {
 
 	@RequestMapping(value = "/invoice/update/{id}", method = RequestMethod.POST)
     public ResponseEntity<Invoice> updateInvoice(@PathVariable("id") long id, @RequestBody Invoice invoice) {
-        System.out.println("Updating Invoice " + id);
+		log.info("Updating Invoice " + id);
           
         Invoice currentInvoice = invoiceService.findById(id);
           
         if (currentInvoice==null) {
-            System.out.println("Invoice with id " + id + " not found");
+        	log.info("Invoice with id " + id + " not found");
             return new ResponseEntity<Invoice>(HttpStatus.NOT_FOUND);
         }
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		Users user = new Users();
 		user = userService.findByName(username);
-		System.out.println("Type invoice" +invoice.getIdType()); 
+		log.info("Type invoice" +invoice.getIdType()); 
 		Customer cus = new Customer();
 		cus = customerService.findByUser(user);
         
@@ -204,11 +207,11 @@ public class InvoiceController {
 
 	@RequestMapping(value = "/invoice/delete/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Invoice> deleteInvoice(@PathVariable("id") long id) {
-		System.out.println("Fetching & Deleting Invoice with id " + id);
+		log.info("Fetching & Deleting Invoice with id " + id);
 
 		Invoice invoice = invoiceService.findById(id);
 		if (invoice == null) {
-			System.out.println("Unable to delete. Invoice with id " + id + " not found");
+			log.info("Unable to delete. Invoice with id " + id + " not found");
 			return new ResponseEntity<Invoice>(HttpStatus.NOT_FOUND);
 		}
 

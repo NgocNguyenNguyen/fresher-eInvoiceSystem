@@ -7,10 +7,10 @@ app.config(function($routeProvider) {
 		controller : 'UserController',
 	}).when("/user-manage", {
 		templateUrl : "/EInvoice/views/admin/userManagement.html",
-		controller : 'UserController',
+		controller : 'UserController as ctrl',
 	}).when("/config-email", {
 		templateUrl : "/EInvoice/views/admin/config-email.html",
-		controller : 'UserController',
+		controller : 'UserController as ctrl',
 	}).when("/customer-manage", {
 		templateUrl : "/EInvoice/views/customer/customerManagement.html",
 		controller: 'CustomerController as ctrl',

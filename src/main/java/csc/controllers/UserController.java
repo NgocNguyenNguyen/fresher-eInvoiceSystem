@@ -4,6 +4,8 @@ import java.util.HashSet;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -37,6 +39,7 @@ import csc.service.UserService;
  */
 @RestController
 public class UserController {
+	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
 	// ------------------------
 	// PUBLIC METHODS
@@ -58,12 +61,12 @@ public class UserController {
 	public boolean getUser(@RequestBody String email) {
 		try {
 			Customer cus = customerService.findByEmail(email);
-			System.out.println("Email " + cus.getEmail());
+			log.info("Email " + cus.getEmail());
 		} catch (Exception ex) {
-			System.out.println("Email does not exist");
+			log.error("Email does not exist");
 			return false;
 		}
-		System.out.println("Email " + email + " does exist");
+		log.info("Email " + email + " does exist");
 		return true;
 	}
 
@@ -92,10 +95,10 @@ public class UserController {
 
 	@RequestMapping(value = "/user/get/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Users> getUser(@PathVariable("id") long id) {
-		System.out.println("Fetching User with id " + id);
+		log.info("Fetching User with id " + id);
 		Users user = userService.findById(id);
 		if (user == null) {
-			System.out.println("User with id " + id + " not found");
+			log.info("User with id " + id + " not found");
 			return new ResponseEntity<Users>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Users>(user, HttpStatus.OK);
@@ -108,10 +111,10 @@ public class UserController {
 	// public ResponseEntity<Page<Users>>
 	// getUserByActive(@PathVariable("active") String active, Pageable pageable)
 	// {
-	// System.out.println("Fetching User with id " + active);
+	// log.info("Fetching User with id " + active);
 	// Page<Users> user = userService.findByActive(active, pageable);
 	// if (user.getSize() == 0) {
-	// System.out.println("User with id " + active + " not found");
+	// log.info("User with id " + active + " not found");
 	// return new ResponseEntity<Page<Users>>(HttpStatus.NOT_FOUND);
 	// }
 	// return new ResponseEntity<Page<Users>>(user, HttpStatus.OK);
@@ -121,10 +124,10 @@ public class UserController {
 
 	@RequestMapping(value = "/user/create", method = RequestMethod.POST)
 	public ResponseEntity<Void> createUser(@RequestBody Users user, UriComponentsBuilder ucBuilder) {
-		System.out.println("Creating User " + user.getUsername());
+		log.info("Creating User " + user.getUsername());
 
 		if (userService.isUserExist(user)) {
-			System.out.println("A User with name " + user.getUsername() + " already exist");
+			log.info("A User with name " + user.getUsername() + " already exist");
 			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
 
@@ -139,12 +142,12 @@ public class UserController {
 
 	@RequestMapping(value = "/user/update/{id}", method = RequestMethod.POST)
 	public ResponseEntity<Users> updateUser(@PathVariable("id") long id, @RequestBody Users user) {
-		System.out.println("Updating User " + id);
+		log.info("Updating User " + id);
 
 		Users currentUser = userService.findById(id);
 
 		if (currentUser == null) {
-			System.out.println("User with id " + id + " not found");
+			log.info("User with id " + id + " not found");
 			return new ResponseEntity<Users>(HttpStatus.NOT_FOUND);
 		}
 
@@ -160,11 +163,11 @@ public class UserController {
 
 	@RequestMapping(value = "/user/delete/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Users> deleteUser(@PathVariable("id") long id) {
-		System.out.println("Fetching & Deleting User with id " + id);
+		log.info("Fetching & Deleting User with id " + id);
 
 		Users user = userService.findById(id);
 		if (user == null) {
-			System.out.println("Unable to delete. User with id " + id + " not found");
+			log.info("Unable to delete. User with id " + id + " not found");
 			return new ResponseEntity<Users>(HttpStatus.NOT_FOUND);
 		}
 
@@ -176,7 +179,7 @@ public class UserController {
 
 	@RequestMapping(value = "/user/register", method = RequestMethod.POST)
 	public ResponseEntity<Void> register(@RequestBody Register res, UriComponentsBuilder ucBuilder) {
-		System.out.println("Register " + res.getUsername());
+		log.info("Register " + res.getUsername());
 
 		Users user = new Users();
 		user.setUsername(res.getUsername());

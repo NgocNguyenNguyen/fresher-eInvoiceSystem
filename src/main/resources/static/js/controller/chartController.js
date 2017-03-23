@@ -62,10 +62,11 @@ app.controller('ChartController', ['$scope','$filter','ReportService' , 'TypeInv
 
 				x = new Date(dateStart);
 				y = new Date(dateEnd);
-				console.log(x.getMonth());
-console.log(y.getMonth());
+//				console.log(x.getMonth());
+//				console.log(y.getMonth());
 				// add in bar chart
 				dt.push(x.getTime());
+				console.log(dt);
 				var count = 0;
 				if (x.getFullYear() == y.getFullYear()) {
 					
@@ -191,6 +192,8 @@ console.log(y.getMonth());
 			};
 			// request data from url
 			function requestReport() {
+				reports.splice(0,reports.length);
+				dt.splice(0,dt.length);
 				pb.splice(0,pb.length);
 				eb.splice(0,eb.length);
 				ib.splice(0,ib.length);
@@ -203,7 +206,8 @@ console.log(y.getMonth());
 				teb.splice(0,teb.length);
 				tib.splice(0,tib.length);
 				twb.splice(0,twb.length);
-				console.log(pb);
+//				console.log(pb);
+//				console.log(reports);
 			};
 		
 			
@@ -237,11 +241,11 @@ console.log(y.getMonth());
 				},
 				"series" : [ {
 					'values' : pb,
-					backgroundColor : "#FAEE00",
+					backgroundColor : "#ff66cc",
 				},
 				{
 					'values' : eb,
-					backgroundColor : "#A0FFEE"
+					backgroundColor : "#0066ff"
 				},
 
 				{
@@ -257,14 +261,14 @@ console.log(y.getMonth());
 					"text" : "Phone Bill",
 					"x" : "350px",
 					"y" : "10px",
-					"background-color" : "#FAEE00",
+					"background-color" : "#ff66cc",
 					"width" : "100px",
 					"height" : "30px"
 				}, {
 					"text" : "Electric Bill",
 					"x" : "450px",
 					"y" : "10px",
-					"background-color" : "#A0FFEE",
+					"background-color" : "#0066ff",
 					"width" : "100px",
 					"height" : "30px"
 				}, {
@@ -292,11 +296,11 @@ console.log(y.getMonth());
 				series : [ {
 					values : tpb,
 					text : "Phone Bill",
-					"background-color" : "#FAEE00"
+					"background-color" : "#ff66cc"
 				}, {
 					values : teb,
 					text : "Electric Bill",
-					"background-color" : "#A0FFEE"
+					"background-color" : "#0066ff"
 
 				}, {
 					values : tib,

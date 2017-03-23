@@ -1,5 +1,7 @@
 package csc.controllers;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -16,6 +18,7 @@ import csc.service.ParameterService;
 
 @RestController
 public class ParameterController {
+	private static final Logger log = LoggerFactory.getLogger(ParameterController.class);
 
 	@Autowired
 	ParameterService parameterService;
@@ -31,7 +34,7 @@ public class ParameterController {
     			
 		Parameter para = parameterService.findById(id);
 				
-        System.out.println("Fetching Customer with id " + para.getId());
+        log.info("Fetching Customer with id " + para.getId());
         
         return new ResponseEntity<Parameter>(para, HttpStatus.OK);
     } 

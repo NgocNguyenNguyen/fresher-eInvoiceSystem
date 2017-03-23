@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -35,4 +36,7 @@ public interface InvoiceRepository extends CrudRepository<Invoice, Long>, JpaRep
 	
 	List<Invoice> findByIdCustomerAndDateBetweenAndIdType(Customer idCus, Date dateStart, Date dateEnd, TypeInvoice type);
 
+	//SELECT sum(u.grand_total) FROM eis.invoice u where u.id_customer = 'CUS2017033' and u.date between '2016-02-01' and '2016-02-31'
+	@Query(value = "select sum(u.grand_total) from Invoice u where u.id_customer = ?#{[0]} and u.date between ?#{[1]} and ?#{[2]}", nativeQuery = true)
+	long sumGrandTotal(String idCus, String dateStart, String dateEnd);
 }

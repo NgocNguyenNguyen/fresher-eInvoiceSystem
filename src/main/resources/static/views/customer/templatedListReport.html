@@ -14,7 +14,7 @@
 								<th>Date</th>
 								<th>Contract Number</th>
 								<th>Name Service</th>
-								<th>Index Consumed</th>
+								<th ng-show="indexConsumed">Index Consumed</th>
 								<th>Grand Total</th>
 							</tr>
 						</thead>
@@ -23,20 +23,24 @@
 								<td><span ng-bind="u.date | date:'dd/MM/yyyy'"></span></td>
 								<td><span ng-bind="u.contractNumber"></span></td>
 								<td><span ng-bind="u.nameService"></span></td>
-								<td><span ng-bind="u.indexConsumed | number""></span></td>
+								<td ng-show="u.indexConsumed != 1"><span ng-bind="u.indexConsumed | number""></span></td>
 								<td><span ng-bind="u.grandTotal | number"></span>
 									{{ctrl.currencyUnit }}</td>
 							</tr>
-							<tr>
-								<td colspan="3" style="font-weight: bold">Total index
-									consumed:</td>
-								<td style="font-weight: bold"><span>{{ ctrl.totalIndex }}</span></td>
+							<tr ng-show="indexConsumed">
+								<td colspan="3" style="font-weight: bold;"><h4>Total
+										index consumed:</h4></td>
+								<td style="font-weight: bold"><span><h4>{{
+											ctrl.totalIndex }}</h4></span></td>
 								<td></td>
 							</tr>
 							<tr>
-								<td colspan="4" style="font-weight: bold">Total grand
-									total:</td>
-								<td style="font-weight: bold"><span>{{ ctrl.totalGrand | number}} {{ctrl.currencyUnit }}</span></td>
+								<td ng-if="indexConsumed" colspan="4" style="font-weight: bold"><h4>Total
+										grand total:</h4></td>
+								<td ng-if="!indexConsumed" colspan="3" style="font-weight: bold"><h4>Total
+										grand total:</h4></td>
+								<td style="font-weight: bold"><span><h4>{{
+											ctrl.totalGrand | number}} {{ctrl.currencyUnit }}</h4></span></td>
 							</tr>
 						</tbody>
 					</table>

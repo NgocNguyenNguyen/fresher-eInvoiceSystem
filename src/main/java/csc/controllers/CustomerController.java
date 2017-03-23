@@ -4,6 +4,8 @@ import java.util.HashSet;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -26,7 +28,7 @@ import csc.service.UserService;
 
 @RestController
 public class CustomerController {
-
+	private static final Logger log = LoggerFactory.getLogger(CustomerController.class);
 	@Autowired
 	UserService userService;
 
@@ -44,12 +46,12 @@ public class CustomerController {
 	public boolean getCustomer(@RequestBody String email) {
 		try {
 			Customer cus = customerService.findByEmail(email);
-			System.out.println("Email " + cus.getEmail());
+			log.info("Email " + cus.getEmail());
 		} catch (Exception ex) {
-			System.out.println("Email does not exist");
+			log.error("Email does not exist");
 			return false;
 		}
-		System.out.println("Email " + email + " does exist");
+		log.info("Email " + email + " does exist");
 		return true;
 	}
 
@@ -62,10 +64,10 @@ public class CustomerController {
 		cus.getUser().setPassword(null);
 		cus.getUser().setRoles(null);
 
-		System.out.println("Fetching Customer with id " + cus.getId());
+		log.info("Fetching Customer with id " + cus.getId());
 
 		if (cus == null) {
-			System.out.println("User with id " + cus.getId() + " not found");
+			log.error("User with id " + cus.getId() + " not found");
 			return new ResponseEntity<Customer>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Customer>(cus, HttpStatus.OK);
@@ -129,14 +131,14 @@ public class CustomerController {
 			Users user = new Users();
 			user = userService.findByName(username);
 			if (passwordEncoder.matches(Pwd, user.getPassword())) {
-				System.out.println("true");
+				log.info("true");
 				return true;
 			} else {
-				System.out.println("false");
+				log.info("false");
 				return false;
 			}
 		} catch (Exception ex) {
-			System.out.println("Pwd does not exist");
+			log.error("Pwd does not exist");
 			return false;
 		}
 	}

@@ -162,20 +162,26 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 		createService("G", 4, 5, 20000);
 
 		// Create Invoice record
-		// contractNumber - idCompany - idCustomer - idType - totalRecord
-		createInvoiceRecord("AC123457", 1, 1L, 1, 10);
-		createInvoiceRecord("IC123458", 1, 1L, 2, 10);
-		createInvoiceRecord("UC123458", 1, 1L, 3, 10);
-		createInvoiceRecord("KC123458", 1, 1L, 4, 10);
+		// contractNumber - idCompany - idCustomer - idType - totalRecord - year
+		createInvoiceRecord("AC123457", 1, 1L, 1, 10, 2016);
+		createInvoiceRecord("IC123458", 1, 1L, 2, 10, 2016);
+		createInvoiceRecord("UC123458", 1, 1L, 3, 10, 2016);
+		createInvoiceRecord("KC123458", 1, 1L, 4, 10, 2016);
 
 
-		createInvoiceRecord("KC121450", 1, 3L, 1, 10);
-		createInvoiceRecord("KC122550", 1, 3L, 2, 10);
-		createInvoiceRecord("KC123650", 1, 3L, 3, 10);
-		createInvoiceRecord("KC124750", 1, 3L, 4, 10);
+		createInvoiceRecord("KC121450", 1, 3L, 1, 10, 2016);
+		createInvoiceRecord("KC122550", 1, 3L, 2, 10, 2016);
+		createInvoiceRecord("KC123650", 1, 3L, 3, 10, 2016);
+		createInvoiceRecord("KC124750", 1, 3L, 4, 10, 2016);
+		
+
+		createInvoiceRecord("KC124250", 1, 3L, 1, 3, 2017);
+		createInvoiceRecord("RC123250", 1, 3L, 2, 3, 2017);
+		createInvoiceRecord("FC122250", 1, 3L, 3, 3, 2017);
+		createInvoiceRecord("AC121250", 1, 3L, 4, 3, 2017);
 
 
-		createInvoiceRecord("UC123457", 1, 2L, 1, 10);
+		createInvoiceRecord("UC123457", 1, 2L, 1, 10, 2016);
 
 		// Create parameter
 		String dateString = "23/04/2017 23:11";		 
@@ -260,11 +266,10 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 	}
 
 	private void createInvoiceRecord(String contractNumber, int idCompany, Long idCustomer, int idType,
-			int totalRecord) {
+			int totalRecord, int year) {
 		try {
 			int day = 10;
 			int month = 0;
-			int year = 2016;
 			System.out.println("contractNumber:" + contractNumber);
 			Invoice invoice;
 			List<Company> cpn;

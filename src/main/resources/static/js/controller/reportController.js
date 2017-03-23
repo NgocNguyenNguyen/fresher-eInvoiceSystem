@@ -39,6 +39,11 @@ app.controller('ReportController', [
 				if (self.reports.length > 0) {
 					$scope.isReport = true;
 					self.nameInvoice = self.reports[0].idType.nameInvoice;
+					if (self.reports[0].indexConsumed == 1) {
+						$scope.indexConsumed = false;
+					} else {
+						$scope.indexConsumed = true;
+					}
 					for (index in rs) {
 						self.totalIndex = self.totalIndex + rs[index].indexConsumed;
 						self.totalGrand = self.totalGrand + rs[index].grandTotal;

@@ -12,7 +12,7 @@ public interface UserService {
 	@Cacheable("users")
 	Users findById(long id);
 	
-	@Cacheable("users")
+//	@Cacheable("users")
 	Users findByName(String name);
 	
 	@Cacheable("users")

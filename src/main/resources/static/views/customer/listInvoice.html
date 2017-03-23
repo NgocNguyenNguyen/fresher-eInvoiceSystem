@@ -24,7 +24,7 @@
 			
 			<td><span ng-bind="u.idType.nameInvoice"></span></td>
 			<td><span ng-bind="u.contractNumber"></span></td>
-			<td><span ng-bind="u.indexConsumed | number""></span></td>
+			<td><span ng-show="u.indexConsumed != 1" ng-bind="u.indexConsumed | number""></span></td>
 			<td><span ng-bind="u.date | date:'dd/MM/yyyy'"></span></td>
 
 			<td><span ng-bind="u.grandTotal | number"></span> {{ctrl.currencyUnit }} </td>

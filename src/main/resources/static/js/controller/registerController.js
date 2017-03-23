@@ -25,7 +25,7 @@ app.controller('RegisterController', function($scope, RegisterService, $location
                     title: "Register successful!!", //Bold text
                     type: "success", //type -- adds appropiriate icon
                     confirmButtonColor: "blue",
-                    confirmButtonText: "Click to login",
+                    confirmButtonText: "OK",
                 }, 
                 function(confirmButtonText){ //Function that triggers on user action.
                 	$location.path('/EInvoice/login');

@@ -42,5 +42,7 @@ public interface InvoiceService {
 	
 	@Cacheable("invoice")
 	Invoice findByContractNumberAndIdCustomer(String contractNum, Customer customer);
+	
+	long sumGrandTotal(String idCus, String dateStart, String dateEnd);
 
 }
