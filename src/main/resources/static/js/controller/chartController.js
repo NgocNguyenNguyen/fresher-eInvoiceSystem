@@ -112,10 +112,10 @@ app.controller('ChartController', ['$scope','$filter','ReportService' , 'TypeInv
 					
 				
 				} else {
-					for (i = x.getMonth(); i <= (y.getMonth() + 12); i++) {
+					for (i = x.getMonth() ; i <=y.getMonth() +12 ; i++) {
+						
 						for ( var temp in reports) {
 							day = new Date(reports[temp].date);
-							// console.log('day ' + day.getMonth());
 							if (day.getMonth() == i) {
 								switch (reports[temp].idType.code) {
 								case "PB":
@@ -134,8 +134,29 @@ app.controller('ChartController', ['$scope','$filter','ReportService' , 'TypeInv
 									console.log("Nothing");
 									break;
 								}
+
+							}	
+							else if (day.getMonth() + 12 == i ){
+								switch (reports[temp].idType.code) {
+								case "PB":
+									pb.push(reports[temp].grandTotal);
+									break;
+								case "EB":
+									eb.push(reports[temp].grandTotal);
+									break;
+								case "IB":
+									ib.push(reports[temp].grandTotal);
+									break;
+								case "WB":
+									wb.push(reports[temp].grandTotal);
+									break;
+								default:
+									console.log("Nothing");
+									break;
+								}
+								
 							}
-						}
+							}
 						if (pb[count] == null) {
 							pb.push(0);
 						}
@@ -150,6 +171,7 @@ app.controller('ChartController', ['$scope','$filter','ReportService' , 'TypeInv
 						}
 					count++;
 					}
+					
 				}
 				
 				// add in pie chart
@@ -221,7 +243,7 @@ app.controller('ChartController', ['$scope','$filter','ReportService' , 'TypeInv
 				
 				"legend": {
 				    "header": {
-				      "text": "Legend Header"
+				      "text": "Color item"
 				    },
 				    "draggable": true,
 				    "drag-handler": "icon"
@@ -240,52 +262,56 @@ app.controller('ChartController', ['$scope','$filter','ReportService' , 'TypeInv
 					}
 				},
 				"series" : [ {
+					"text": "Phone bill",
 					'values' : pb,
 					backgroundColor : "#ff66cc",
 				},
 				{
+					"text": "Electric bill",
 					'values' : eb,
 					backgroundColor : "#0066ff"
 				},
 
 				{
+					"text": "Water bill",
 					'values' : wb,
 					backgroundColor : "green"
 				},
 
 				{
+					"text": "Internet bill",
 					'values' : ib,
 					backgroundColor : "red"
 				}, ],
-				"labels" : [ {
-					"text" : "Phone Bill",
-					"x" : "350px",
-					"y" : "10px",
-					"background-color" : "#ff66cc",
-					"width" : "100px",
-					"height" : "30px"
-				}, {
-					"text" : "Electric Bill",
-					"x" : "450px",
-					"y" : "10px",
-					"background-color" : "#0066ff",
-					"width" : "100px",
-					"height" : "30px"
-				}, {
-					"text" : "Water Bill",
-					"x" : "550px",
-					"y" : "10px",
-					"background-color" : "green",
-					"width" : "100px",
-					"height" : "30px"
-				}, {
-					"text" : "Internet Bill",
-					"x" : "650px",
-					"y" : "10px",
-					"background-color" : "red",
-					"width" : "100px",
-					"height" : "30px"
-				} ]
+//				"labels" : [ {
+//					"text" : "Phone Bill",
+//					"x" : "350px",
+//					"y" : "10px",
+//					"background-color" : "#ff66cc",
+//					"width" : "100px",
+//					"height" : "30px"
+//				}, {
+//					"text" : "Electric Bill",
+//					"x" : "450px",
+//					"y" : "10px",
+//					"background-color" : "#0066ff",
+//					"width" : "100px",
+//					"height" : "30px"
+//				}, {
+//					"text" : "Water Bill",
+//					"x" : "550px",
+//					"y" : "10px",
+//					"background-color" : "green",
+//					"width" : "100px",
+//					"height" : "30px"
+//				}, {
+//					"text" : "Internet Bill",
+//					"x" : "650px",
+//					"y" : "10px",
+//					"background-color" : "red",
+//					"width" : "100px",
+//					"height" : "30px"
+//				} ]
 			};
 			$scope.pieChart = {
 				type : "pie",
